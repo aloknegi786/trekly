@@ -1,21 +1,19 @@
-import mongoose, { Schema, Document, Mongoose } from "mongoose";
-
-import { v4 as uuidv4 } from 'uuid';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface User extends Document {
-    userId: string;
+    firebaseId: string;
     username: string;
-    gender: string;
-    phoneNo: string;
-    email: string; 
-    password: string; 
+    gender?: string;
+    phoneNo?: string;
+    email: string;
 }
 
 const UserSchema: Schema<User> = new Schema({
-    userId: {
+    // Store the Firebase UID here
+    firebaseId: {
         type: String,
         unique: true,
-        default: () => uuidv4(),
+        required: true,
     },
     username: {
         type: String,
@@ -27,24 +25,20 @@ const UserSchema: Schema<User> = new Schema({
             values: ['male', 'female', 'others'],
             message: '{VALUE} is not supported'
         },
-        required: true,
+        required: false,
     },
     phoneNo: {
         type: String,
-        required: [true, "phone number required"]
+        required: false
     },
     email: {
         type: String,
         required: [true, "Email is required"],
         unique: true,
+        lowercase: true, // Recommended: ensure emails are always stored in lowercase
         match: [/.+\@.+\..+/, 'please use a valid email address']
-    },
-    password: {
-        type: String,
-        required: [true, "Password is required"]
     }
-});
-
+}, { timestamps: true }); // Good practice to track when users joined
 
 const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User", UserSchema));
 
