@@ -6,7 +6,7 @@ type Props = {
 
 const Layout = ({children}: Props) => {
   return (
-    <div className='flex flex-col py-3 px-3 container'>
+    <div className='flex flex-col container'>
         {children}
     </div>
   )

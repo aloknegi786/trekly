@@ -1,0 +1,7 @@
+export { TrekHero } from "./TrekHero"
+export { TrekMetaBar } from "./TrekMetaBar"
+export { TrekOverview } from "./TrekOverview"
+export { TrekInclusions } from "./TrekInclusions"
+export { TrekGallery } from "./TrekGallery"
+export { TrekBookingCard } from "./TrekBookingCard"
+export { TrekEnquiryForm } from "./TrekEnquiryForm"
