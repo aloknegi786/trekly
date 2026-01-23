@@ -14,7 +14,7 @@ export default function LoginPage() {
     console.log("Processing after successfull log in.")
     const token = await user.getIdToken();
     document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
-    router.push('/dashboard');
+    router.push('/trek');
   };
 
   const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,6 +43,7 @@ export default function LoginPage() {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result.user);
       await handleAuthSuccess(result.user);
     } catch (error) {
       console.error("Google sign-in error:", error);
@@ -52,7 +53,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
         
         <div className="text-center">
@@ -60,7 +61,6 @@ export default function LoginPage() {
           <p className="mt-2 text-sm text-slate-600">Choose your preferred sign-in method</p>
         </div>
 
-        {/* Google Sign In Button */}
         <button 
           onClick={handleGoogleLogin}
           disabled={isLoading}
@@ -88,23 +88,44 @@ export default function LoginPage() {
         <form onSubmit={handleEmailLogin} className="space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-              <input name="email" type="email" required className="text-black block w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <input 
+                name="email" 
+                type="number" 
+                placeholder="Enter your email"
+                required 
+                className="text-black block w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" 
+                />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-              <input name="password" type="password" required className="text-black block w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+              <input 
+                name="password" 
+                type="password" 
+                required 
+                placeholder="Enter your password"
+                className="text-black block w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" 
+              />
             </div>
           </div>
 
           <button 
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 rounded-lg shadow-sm text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
+            className="w-full py-3 px-4 rounded-lg shadow-sm text-sm font-semibold text-white bg-orange-500 hover:bg-orange-600 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-50"
           >
             {isLoading ? "Processing..." : "Sign In"}
           </button>
         </form>
+        <p className="text-center text-sm text-muted-foreground mt-6">
+            Don't have an account ?{" "}
+            <a
+              href="/signup"
+              className="text-orange-600 font-medium hover:underline"
+            >
+              Sign Up
+            </a>
+          </p>
       </div>
     </div>
   );

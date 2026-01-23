@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Menu, X } from "lucide-react";
 import { MENU_ITEMS } from "@/constants/links";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   return (
@@ -41,7 +43,10 @@ const Header = () => {
         </div>
 
         {/* Login Button */}
-        <button className="bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow">
+        <button 
+          className="bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow" 
+          onClick={() => {router.push('/login')}}
+          >
           Login
         </button>
 
