@@ -8,10 +8,13 @@ import { MENU_ITEMS } from "@/constants/links";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import ContactDetails from "@/components/global/contactDetails";
+import { contacts } from "@/constants/links";
 
 const Header = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   
@@ -32,11 +35,12 @@ const Header = () => {
   }, []); // Empty dependency array is correct here
 
   return (
-    <header className="w-full px-4 py-3 flex items-center justify-between bg-transparent shadow-sm top-0 z-50 absolute">
+    <header className="w-full px-2 py-1 flex items-center justify-between bg-transparent shadow-sm top-0 z-50 absolute">
 
       {/* Left: Logo */}
       <div className="flex items-center gap-2">
-        <Image alt="logo" src="/next.svg" width={90} height={40} />
+        <Image alt="logo" src="/icon.svg" width={80} height={40} />
+        <Image alt="logo" src="/logoName.svg" width={100} height={60} />
       </div>
 
       {/* Desktop Navigation */}
@@ -57,7 +61,10 @@ const Header = () => {
 
         {/* Phone Icon (Desktop Only) */}
         <div className="hidden lg:flex items-center border-r border-gray-300 pr-4">
-          <button className="hover:scale-110 transition-transform text-gray-700">
+          <button 
+            className="hover:scale-110 transition-transform text-gray-700"
+            onClick={() => setContactDetailsOpen(true)}
+          >
             <Phone size={20} />
           </button>
         </div>
@@ -96,13 +103,25 @@ const Header = () => {
             ))}
 
             {/* Mobile Phone Button */}
-            <button className="flex items-center gap-2 text-gray-700 mt-2">
+            <button 
+              className="flex items-center gap-2 text-gray-700 mt-2"
+              onClick={() => setContactDetailsOpen(true)}
+            >
               <Phone size={18} /> Call Us
             </button>
 
           </div>
         </div>
       )}
+
+      {/* Contact Details Modal */}
+      {contactDetailsOpen && (
+        <ContactDetails
+          onClose={() => setContactDetailsOpen(false)}
+          contacts={contacts}
+        />
+      )}
+
     </header>
   );
 };
