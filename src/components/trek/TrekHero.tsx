@@ -16,7 +16,7 @@ export function TrekHero() {
   return (
     <section className="relative h-[70vh] w-full">
       <Image
-        src="/images/NagTibba1.jpeg"
+        src="/images/NagTibba0.jpeg"
         alt="Nag Tibba Trek View"
         fill
         className="object-cover"
@@ -59,7 +59,7 @@ export function TrekHero() {
             2500 <span className="text-gray-200 text-sm">/ person</span>
           </Button>
 
-          <span className={`text-gray-900 text-sm ${priceHovering ? "": "hidden"}`}>Make sure to contact through whatsapp before payment</span>
+          <span className={`text-gray-900 text-sm ${priceHovering ? "": "hidden"}`}>*Negotiable</span>
         </div>
       </div>
 

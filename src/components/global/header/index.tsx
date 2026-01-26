@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Menu, X } from "lucide-react";
 import { MENU_ITEMS } from "@/constants/links";
 import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import ContactDetails from "@/components/global/contactDetails";
 import { contacts } from "@/constants/links";
 
@@ -13,6 +15,24 @@ const Header = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  
+  useEffect(() => {
+    // This listener fires whenever the user logs in OR logs out
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        console.log("User is logged in:", user.email);
+      } else {
+        setIsLoggedIn(false);
+        console.log("User is logged out");
+      }
+    });
+
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, []); // Empty dependency array is correct here
 
   return (
     <header className="w-full px-2 py-1 flex items-center justify-between bg-transparent shadow-sm top-0 z-50 absolute">
@@ -51,7 +71,7 @@ const Header = () => {
 
         {/* Login Button */}
         <button 
-          className="bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow" 
+          className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "hidden": ""}`} 
           onClick={() => {router.push('/login')}}
           >
           Login
