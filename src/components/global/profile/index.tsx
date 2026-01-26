@@ -1,5 +1,7 @@
 "use client";
 
+import { Mail, Phone, Mountain } from "lucide-react";
+
 type ProfileProps = {
   name: string;
   email: string;
@@ -10,7 +12,7 @@ type ProfileProps = {
   avatarUrl: string;
 };
 
-const Profile = ({
+export default function Profile({
   name,
   email,
   phone,
@@ -18,59 +20,46 @@ const Profile = ({
   distance,
   yearsActive,
   avatarUrl,
-}: ProfileProps) => {
+}: ProfileProps) {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div className="max-w-2xl mx-auto p-4">
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-emerald-100">
 
-        {/* Header */}
-        <div className="h-40 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+        {/* Compact Mountain Header */}
+        <div className="h-32 bg-gradient-to-r from-emerald-700 to-green-600" />
 
         {/* Content */}
-        <div className="relative px-8 pb-8">
+        <div className="relative px-6 pb-6">
 
           {/* Avatar */}
-          <div className="absolute -top-16 left-8">
-            <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-md">
-              <img
-                src={avatarUrl}
-                alt="Avatar"
-                className="w-full h-full object-cover"
-              />
+          <div className="absolute -top-10 left-6">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow">
+              <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
             </div>
           </div>
 
-          {/* User Info */}
-          <div className="pt-20 flex flex-col md:flex-row md:justify-between gap-6">
+          {/* Info */}
+          <div className="pt-14 flex flex-col md:flex-row md:justify-between gap-4">
+            <div className="md:ml-28">
+              <h2 className="text-xl font-bold text-gray-900">{name}</h2>
+              <p className="text-sm text-emerald-700 font-medium">Mountain Trekker</p>
 
-            {/* Name & Contact */}
-            <div className="md:ml-40">
-              <h2 className="text-3xl font-bold text-gray-900">{name}</h2>
-
-              <div className="mt-3 space-y-2 text-gray-600 text-sm">
-                <p>
-                  <span className="font-medium text-gray-800">Email:</span>{" "}
-                  {email}
-                </p>
-
-                <p>
-                  <span className="font-medium text-gray-800">Phone:</span>{" "}
-                  {phone}
-                </p>
+              <div className="mt-2 space-y-1 text-sm text-gray-700">
+                <p className="flex items-center gap-2"><Mail size={14} /> {email}</p>
+                <p className="flex items-center gap-2"><Phone size={14} /> {phone}</p>
               </div>
             </div>
 
-            {/* Edit Button */}
-            <button className="self-start md:self-center px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            <button className="self-start px-4 py-2 bg-emerald-700 text-white rounded-lg text-sm font-medium hover:bg-emerald-800">
               Edit Profile
             </button>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
-            <Stat value={trips.toString()} label="Trips Completed" />
-            <Stat value={distance} label="Total Distance" />
-            <Stat value={`${yearsActive} Years`} label="Active Since" />
+          <div className="grid grid-cols-3 gap-4 mt-6 text-center">
+            <Stat value={trips.toString()} label="Treks" />
+            <Stat value={distance} label="Distance" />
+            <Stat value={`${yearsActive}y`} label="Active" />
           </div>
 
         </div>
@@ -79,14 +68,11 @@ const Profile = ({
   );
 }
 
-/* Stat Card */
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="bg-gray-50 rounded-xl p-5 shadow-sm hover:shadow transition text-center">
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-      <p className="text-gray-600 text-sm mt-1">{label}</p>
+    <div className="bg-emerald-50 rounded-lg p-3">
+      <p className="text-lg font-bold text-emerald-800">{value}</p>
+      <p className="text-xs text-gray-600">{label}</p>
     </div>
   );
 }
-
-export default Profile;

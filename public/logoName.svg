@@ -1,0 +1,22 @@
+<svg width="300" height="100" viewBox="110 300 300 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="a" x1="120" y1="330" x2="200" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1f7a9f"/>
+      <stop offset="1" stop-color="#3dbac6"/>
+    </linearGradient>
+    <linearGradient id="b" x1="265" y1="330" x2="370" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e54c63"/>
+      <stop offset="1" stop-color="#b82a74"/>
+    </linearGradient>
+    <linearGradient id="c" x1="180" y1="370" x2="300" y2="370" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ea783f"/>
+      <stop offset=".5" stop-color="#dc3162"/>
+      <stop offset="1" stop-color="#9c2e82"/>
+    </linearGradient>
+  </defs>
+  <g font-family="Arial, sans-serif" font-weight="bold">
+    <text x="120" y="345" font-size="55" fill="url(#a)">दिव्य</text>
+    <text x="265" y="345" font-size="55" fill="url(#b)">Tour</text>
+    <text x="180" y="385" font-size="35" fill="url(#c)">&amp; Treks</text>
+  </g>
+</svg>
