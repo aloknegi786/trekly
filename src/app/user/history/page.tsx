@@ -1,41 +1,43 @@
-import React from 'react';
 import TrekHistory from '@/components/global/trekHistory';
+import { cookies } from 'next/headers';
 
-export default function history() {
+type TrekHistoryItem = {
+  id: string;
+  trekName: string;
+  location: string;
+  startDate: string;
+  duration: string;
+  status: "Completed" | "Cancelled" | "Current" | "Upcoming";
+  bookingStatus: string;
+};
+
+async function getTreks(): Promise<TrekHistoryItem[]> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('session')?.value; 
+
+  if (!token) return [];
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/treks`, { 
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store', 
+  });
+
+  if (!res.ok) return [];
+
+  const data = await res.json();
+  return data.treks || [];
+}
+
+export default async function HistoryPage() {
+  const treks: TrekHistoryItem[] = await getTreks();
+
   return (
-    <div >
-      <TrekHistory
-        treks={[
-          {
-            id: "1",
-            trekName: "Kedarkantha Trek",
-            location: "Uttarakhand",
-            date: "12 Jan 2024",
-            duration: "5 Days",
-            distance: "26 km",
-            status: "Current",
-          },
-          {
-            id: "2",
-            trekName: "Hampta Pass",
-            location: "Himachal Pradesh",
-            date: "20 Mar 2024",
-            duration: "6 Days",
-            distance: "35 km",
-            status: "Cancelled",
-          },
-          {
-            id: "3",
-            trekName: "Roopkund Trek",
-            location: "Uttarakhand",
-            date: "10 Dec 2023",
-            duration: "4 Days",
-            distance: "22 km",
-            status: "Completed",
-          },
-        ]}
-      />
-
+    <div>
+      <TrekHistory treks={treks} />
     </div>
   );
 }

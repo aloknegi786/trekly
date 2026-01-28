@@ -16,10 +16,9 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   useEffect(() => {
-    // This listener fires whenever the user logs in OR logs out
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
@@ -30,9 +29,8 @@ const Header = () => {
       }
     });
 
-    // Cleanup the listener when the component unmounts
     return () => unsubscribe();
-  }, []); // Empty dependency array is correct here
+  }, []); 
 
   return (
     <header className="w-full px-2 py-1 flex items-center justify-between bg-transparent shadow-sm top-0 z-50 absolute">
@@ -71,7 +69,7 @@ const Header = () => {
 
         {/* Login Button */}
         <button 
-          className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "hidden": ""}`} 
+          className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "": ""}`} 
           onClick={() => {router.push('/login')}}
           >
           Login

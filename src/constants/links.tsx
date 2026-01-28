@@ -15,7 +15,7 @@ export const tabs = [
 export const BG_IMAGE_URL = "https://img.freepik.com/premium-vector/climbing-mountains-traveler-top-mountain-looks-beautiful-landscape-mountains-mountain-tourism-travel-hiking-vector_939711-7958.jpg?w=1480";
 
 export const contacts = [
-  { label: "Email", value: "divya@email.com", icon: <Mail size={20} /> },
-  { label: "Phone", value: "+91 98765 43210", icon: <Phone size={20} /> },
-  { label: "Address", value: "Uttar Pradesh, India", icon: <MapPin size={20} /> },
+  { label: "Email", value: `${process.env.NEXT_PUBLIC_ADMIN_EMAIL}`, icon: <Mail size={20} /> },
+  { label: "Phone", value: `${process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER}`, icon: <Phone size={20} /> },
+  { label: "Address", value: `${process.env.NEXT_PUBLIC_ADDRESS}`, icon: <MapPin size={20} /> },
 ]

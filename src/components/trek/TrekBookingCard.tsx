@@ -10,8 +10,8 @@ import toast from "react-hot-toast";
 export function TrekBookingCard() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
-  // 1. Initialize with empty strings to avoid uncontrolled/null issues
+  const [showWarning, setShowWarning] = useState(false);
+
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -20,6 +20,7 @@ export function TrekBookingCard() {
     amount: "",
     startDate: ""
   });
+
 
   const handleBooking = async () => {
     setLoading(true);
@@ -33,7 +34,6 @@ export function TrekBookingCard() {
         
         const token = await user.getIdToken();
         
-        // 2. Use relative path (fix env issue)
         const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bookings`, {
           method: "POST",
           headers: {
@@ -68,8 +68,27 @@ export function TrekBookingCard() {
   return (
     <aside className="rounded-xl border bg-white p-6 shadow-sm">
       <h3 className="text-xl font-semibold mb-4">Book Your Trek</h3>
+      
+      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showWarning ? 'max-h-24 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}>
+        <div className="bg-amber-50 border border-amber-200 rounded px-3 py-2 flex flex-col gap-1">
+          <span className="text-amber-800 text-xs font-medium">
+             ⚠️ Check for group discounts & availability first!
+          </span>
+          <a 
+            href="https://wa.me/916397658576?text=Hi,%20I%20want%20to%20confirm%20availability%20for%20a%20trek" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs font-bold text-amber-700 underline hover:text-amber-900 w-fit"
+          >
+            Chat on WhatsApp &rarr;
+          </a>
+        </div>
+      </div>
 
-      <div className="space-y-3">
+      <div 
+        className="space-y-3"
+        onFocus={() => setShowWarning(true)}
+      >
         <Input 
           name="fullName"
           placeholder="Full Name"
@@ -104,17 +123,32 @@ export function TrekBookingCard() {
         <Input 
           name="amount"
           type="number"
-          placeholder="Total Fare" 
+          placeholder="Total amount paid" 
           required
           value={data.amount}
           onChange={(e)=> setData({...data, amount: e.target.value})} 
         />
+
+      <div className="relative">
         <Input 
           type="date" 
           required
           value={data.startDate}
+          min={new Date().toLocaleDateString('en-CA')}
           onChange={(e)=> setData({...data, startDate: e.target.value})} 
+          onClick={(e) => (e.target as HTMLInputElement).showPicker()}
+          className={`cursor-pointer relative z-10 ${
+            !data.startDate ? "text-transparent" : "text-black"
+          }`}
         />
+        
+        {!data.startDate && (
+          <span className="absolute left-3 top-2.5 text-muted-foreground text-sm pointer-events-none z-0">
+            Select Start Date
+          </span>
+        )}
+      </div>
+
       </div>
 
       <Button 

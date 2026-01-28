@@ -58,8 +58,6 @@ export function TrekHero() {
             <span className="text-orange-200">₹</span>
             2500 <span className="text-gray-200 text-sm">/ person</span>
           </Button>
-
-          <span className={`text-gray-900 text-sm ${priceHovering ? "": "hidden"}`}>*Negotiable</span>
         </div>
       </div>
 

@@ -7,7 +7,7 @@ export function TrekMetaBar() {
         {/* Duration */}
         <MetaItem 
           icon={<Calendar className="w-5 h-5" />} 
-          label="2 Days and 1 Night" 
+          label="2 Days | 1 Night" 
         />
         
         {/* Difficulty */}

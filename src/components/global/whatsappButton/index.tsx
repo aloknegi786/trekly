@@ -8,7 +8,7 @@ const WhatsAppFloatingButton = () => {
       <span className="absolute right-16 top-1/2 -translate-y-1/1 bg-black text-white text-xs px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition">
         Chat with us
       </span>
-
+      
       {/* Button */}
       <a
         href="https://wa.me/919876543210"

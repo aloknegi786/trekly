@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaMapMarkerAlt } from "react-icons/fa";
 import { Mail, Phone, MapPin, Mountain } from "lucide-react";
 
 export function Footer() {
@@ -21,12 +21,18 @@ export function Footer() {
               Specializing in turning simple treks into life-changing adventures in the heart of the Garhwal Himalayas.
             </p>
             <div className="flex gap-4 pt-2">
-              <SocialIcon icon={<FaFacebook size={20} />} href="#" />
+              <SocialIcon 
+                icon={<FaFacebook size={20} />} 
+                href="https://www.facebook.com/profile.php?id=61586763758189&mibextid=ZbWKwL" 
+              />
               <SocialIcon 
                 icon={<FaInstagram size={20} />} 
                 href="https://www.instagram.com/divya_tour_and_treks?utm_source=qr&igsh=c2t0cHMzdXE0cm9r"
               />
-              <SocialIcon icon={<FaTwitter size={20} />} href="#" />
+              <SocialIcon 
+                icon={<FaMapMarkerAlt size={20} />}
+                href="https://share.google/enVvkeaTJK1kdHjIZ" 
+              />
             </div>
           </div>
 
@@ -38,19 +44,19 @@ export function Footer() {
               <li className="flex items-start gap-3 md:flex-row-reverse md:text-right">
                 <MapPin className="h-5 w-5 text-orange-600 shrink-0 mt-0.5" />
                 <span>
-                  Dehradun, Uttarakhand<br />
-                  India, 248001
+                  {process.env.NEXT_PUBLIC_ADDRESS}<br />
+                  India, {process.env.NEXT_PUBLIC_PIN_CODE}
                 </span>
               </li>
               {/* Phone */}
               <li className="flex items-center gap-3 md:flex-row-reverse md:text-right">
                 <Phone className="h-5 w-5 text-orange-600 shrink-0" />
-                <span>+91 98765 43210</span>
+                <span>{process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER}</span>
               </li>
               {/* Email */}
               <li className="flex items-center gap-3 md:flex-row-reverse md:text-right">
                 <Mail className="h-5 w-5 text-orange-600 shrink-0" />
-                <span>info@divyatreks.com</span>
+                <span>{process.env.NEXT_PUBLIC_ADMIN_EMAIL}</span>
               </li>
             </ul>
           </div>
@@ -61,8 +67,8 @@ export function Footer() {
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
           <p>&copy; {new Date().getFullYear()} Divya Tour and Treks. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/#" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/#" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
@@ -70,7 +76,6 @@ export function Footer() {
   );
 }
 
-// Helper Component for Social Icons
 function SocialIcon({ icon, href }: { icon: React.ReactNode; href: string }) {
   return (
     <a 
