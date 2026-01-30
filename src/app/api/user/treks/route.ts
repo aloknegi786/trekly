@@ -3,16 +3,14 @@ import { getUserInfo } from "@/actions/user";
 import dbConnect from "@/lib/dbConnect";
 import BookingModel from "@/models/Booking";
 import TrekModel from "@/models/Trek"; 
-
-const getToken = (req: NextRequest): string => {
-  const authHeader = req.headers.get("Authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new Error("Missing or invalid Authorization header");
-  }
-  return authHeader.split("Bearer ")[1];
-};
+import { getToken } from "@/lib/authGuard";
+import { TrekHistoryItem } from "@/types/trek";
+import { bookings }  from "@/constants/bookedData";
 
 export async function GET(req: NextRequest) {
+
+  // return NextResponse.json({ success: true, treks: bookings }, { status: 200 });
+
   try {
     await dbConnect();
     const token = getToken(req);

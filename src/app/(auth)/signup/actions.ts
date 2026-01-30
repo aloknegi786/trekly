@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { authAdmin } from '@/lib/firebase-admin'; 
 import dbConnect from '@/lib/dbConnect';
 import User from "@/models/User";
+import admin from 'firebase-admin';
 
 export type SignUpState = {
   message?: string;
@@ -70,6 +71,7 @@ export async function handleSignUp(
 
   let userRecord;
 
+
   try {
     // 4. Create Firebase User
     userRecord = await authAdmin.createUser({
@@ -78,7 +80,6 @@ export async function handleSignUp(
       displayName: username,
     });
 
-    console.log("Firebase user created:", userRecord.uid);
     const newUser = await User.create({
       firebaseId: userRecord.uid,
       email,
@@ -87,7 +88,6 @@ export async function handleSignUp(
       phoneNo,
     });
 
-    console.log("MongoDB user created:", newUser._id);
   } catch (error: any) {
     // ROLLBACK: If Mongo fails, delete the Firebase user
     if (userRecord?.uid) {

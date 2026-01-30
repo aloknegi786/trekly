@@ -11,7 +11,7 @@ const WhatsAppFloatingButton = () => {
       
       {/* Button */}
       <a
-        href="https://wa.me/919876543210"
+        href={`https://wa.me/${process.env.ADMIN_PHONE_NUMBER}?text=Hello%20Trekly%20Support%2C%20I%20need%20assistance%20with...`}
         target="_blank"
         className="fixed bottom-5 right-5 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110"
       >
