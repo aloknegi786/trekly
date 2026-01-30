@@ -9,6 +9,7 @@ import dbConnect from "@/lib/dbConnect";
 import BookingModel from "@/models/Booking";
 import UserModel from "@/models/User";
 import { verifySession } from "@/lib/authGuard";
+import { getToken } from "@/lib/authGuard";
 
 // name="Rahul Sharma"
 // username="mountain trekker"
@@ -17,16 +18,17 @@ import { verifySession } from "@/lib/authGuard";
 // trips={12}
 // yearsActive={3}
 
-const getToken = (req: NextRequest): string => {
-  const authHeader = req.headers.get("Authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new Error("Missing or invalid Authorization header");
-  }
-  return authHeader.split("Bearer ")[1];
-};
-
-
 export async function GET(req: NextRequest) {
+  const mockUser = {
+    name: "Dr. Elena Rodriguez",
+    username: "alpine_queen",
+    email: "elena.rod@university.edu",
+    phone: "+34 612 345 678",
+    trips: 15,
+    yearsActive: 3
+  };
+
+  return NextResponse.json({ success: true, user: mockUser }, { status: 200 });
   try {
     await dbConnect();
     const token = getToken(req);

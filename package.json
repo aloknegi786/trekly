@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
+    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-query-devtools": "^5.91.3",
     "bcrypt": "^6.0.0",
     "class-variance-authority": "^0.7.1",
     "cls": "^0.1.5",

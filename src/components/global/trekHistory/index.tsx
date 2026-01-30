@@ -1,16 +1,7 @@
 "use client";
 
 import { MapPin, Calendar, Clock, CheckCircle2, AlertCircle } from "lucide-react";
-
-type TrekHistoryItem = {
-  id: string;
-  trekName: string;
-  location: string;
-  startDate: string;
-  duration: string;
-  status: "Completed" | "Cancelled" | "Current" | "Upcoming" | "Ongoing";
-  bookingStatus: string;
-};
+import { TrekHistoryItem } from "@/types/trek";
 
 type TrekHistoryProps = {
   treks: TrekHistoryItem[];
