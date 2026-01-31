@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 export interface Trek extends Document {
     trekId: string;
     destination: string;
+    location?: string;
     duration: number;
     description: string;
     fare: number;
@@ -19,6 +20,11 @@ const TrekSchema: Schema<Trek> = new Schema({
     destination: {
         type: String,
         required: [true, "destination name is required"],
+    },
+    location: {
+        type: String,
+        required: false,
+        default: "Uttarakhand, India",
     },
     duration: {
         type: Number,
