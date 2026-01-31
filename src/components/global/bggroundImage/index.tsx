@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+
 import { BG_IMAGE_URL } from '@/constants/links';
 
 export default function BackgroundImage() {

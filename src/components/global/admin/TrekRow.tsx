@@ -1,3 +1,5 @@
+"use client";
+
 import { TrekHistoryItemAdmin } from "@/types/trek"
 import Cookies from "js-cookie"
 import toast from "react-hot-toast"

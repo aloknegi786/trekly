@@ -1,3 +1,5 @@
+"use client";
+
 import { trekItinerary } from "./trekItineraryData"
 import { TrekItineraryItem } from "./TrekItineraryItem"
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { Tab } from "@/types/links";
 import { Mail, MapPin, Phone } from "lucide-react";
 

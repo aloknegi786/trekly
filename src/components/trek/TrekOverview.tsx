@@ -1,3 +1,5 @@
+"use client";
+
 import { ShieldCheck, Leaf, Map, Users, CheckCircle2 } from "lucide-react";
 
 export function TrekOverview() {

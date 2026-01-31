@@ -1,4 +1,4 @@
-// --- The Popup Component ---
+"use client";
 
 import { useState } from "react";
 import { Mail, Phone, X, Save, Loader2 } from "lucide-react";

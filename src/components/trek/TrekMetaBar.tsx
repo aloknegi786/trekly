@@ -1,3 +1,5 @@
+"use client";
+
 import { Calendar, Mountain, TrendingUp, MapPin } from "lucide-react"
 
 export function TrekMetaBar() {

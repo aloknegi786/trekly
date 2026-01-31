@@ -1,3 +1,5 @@
+"use client";
+
 export { TrekHero } from "./TrekHero"
 export { TrekMetaBar } from "./TrekMetaBar"
 export { TrekOverview } from "./TrekOverview"

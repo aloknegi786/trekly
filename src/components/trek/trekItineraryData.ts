@@ -1,3 +1,5 @@
+"use client";
+
 export interface TrekItineraryDay {
   day: number
   title: string

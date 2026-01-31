@@ -1,3 +1,5 @@
+"use client";
+
 type ContactItem = {
   label: string;
   value: string;

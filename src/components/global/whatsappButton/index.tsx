@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+"use client";
 
 const WhatsAppFloatingButton = () => {
   return (
