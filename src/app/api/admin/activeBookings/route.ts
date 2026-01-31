@@ -39,7 +39,6 @@ export async function GET() {
       }
     });
 
-    console.log("Active Bookings:", activeBookings);
     const formattedBookings = activeBookings.map(async (booking) =>{
         const userId = booking.userId as Types.ObjectId;
         const trekId = booking.trekId as Types.ObjectId;
@@ -64,10 +63,9 @@ export async function GET() {
             phoneNo: user?.phoneNo || "N/A"
         } as TrekHistoryItemAdmin;
     });
-    console.log("Formatted Bookings Promises:", formattedBookings);
     const resolvedBookings = await Promise.all(formattedBookings);
     const validBookings = resolvedBookings.filter(booking => booking !== null) as TrekHistoryItemAdmin[];
-    console.log("Formatted Bookings:", validBookings);
+    
     return NextResponse.json(
       { success: true, data: validBookings },
       { status: 200 }

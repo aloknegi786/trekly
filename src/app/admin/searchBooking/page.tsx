@@ -40,7 +40,7 @@ const fetchSearchBookings = async (
   }
 };
 
-export default function SearchBookingPage() {
+function SearchBookingContent() {
   const searchParams = useSearchParams();
 
   const filters = useMemo<Filters>(() => ({
@@ -60,9 +60,7 @@ export default function SearchBookingPage() {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading filters...</div>}>
-        <TrekFilters filters={filters} />
-      </Suspense>
+      <TrekFilters filters={filters} />
       {isLoading ? (
         <div>Loading bookings...</div>
       ) : isError ? (
@@ -72,7 +70,14 @@ export default function SearchBookingPage() {
       ) : (
         <TrekTable bookings={bookings} />
       )}
-      
     </div>
+  );
+}
+
+export default function SearchBookingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchBookingContent />
+    </Suspense>
   );
 }

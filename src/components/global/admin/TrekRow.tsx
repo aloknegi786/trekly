@@ -20,10 +20,8 @@ const updateStatus = async (bookingId: string) => {
     body: JSON.stringify({ status: "confirmed" }),
   });
 
-  if(res.ok){
-    toast.success("Booking status updated to confirmed");
-  } else {
-    toast.error("Failed to update booking status");
+  if(!res.ok){
+    throw new Error("Failed to update booking status");
   }
 };
 

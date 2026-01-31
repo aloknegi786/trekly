@@ -37,13 +37,38 @@ const createBooking = async (formData: BookingData) => {
       userId: user.uid,
     }),
   });
-
+const contentType = res.headers.get("content-type");
+  
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || "Something went wrong!!");
+    // Handle error response
+    let errorMessage = "Something went wrong!!";
+    
+    if (contentType && contentType.includes("application/json")) {
+      try {
+        const errorData = await res.json();
+        errorMessage = errorData.message || errorMessage;
+      } catch (e) {
+        console.error("Failed to parse error response:", e);
+      }
+    } else {
+      const errorText = await res.text();
+      console.error("Non-JSON error response:", errorText);
+    }
+    
+    throw new Error(errorMessage);
   }
 
-  return res.json();
+  // Handle success response
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new Error("Server returned non-JSON response");
+  }
+
+  try {
+    return await res.json();
+  } catch (error) {
+    console.error("Failed to parse success response:", error);
+    throw new Error("Invalid response from server");
+  }
 };
 
 export function TrekBookingCard() {
@@ -76,6 +101,35 @@ export function TrekBookingCard() {
   });
 
   const handleBooking = () => {
+    // Validate required fields
+    if (!data.fullName || !data.email || !data.phoneNo || !data.persons || !data.amount || !data.startDate) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Validate phone number (basic check)
+    if (data.phoneNo.length < 10) {
+      toast.error("Please enter a valid phone number");
+      return;
+    }
+
+    // Validate persons and amount are positive numbers
+    if (Number(data.persons) <= 0) {
+      toast.error("Number of people must be greater than 0");
+      return;
+    }
+
+    if (Number(data.amount) <= 0) {
+      toast.error("Amount must be greater than 0");
+      return;
+    }
     mutate(data);
   };
 

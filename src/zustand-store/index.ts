@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { UserProfile } from '@/types/UserProfile';
 
 type User = {
@@ -46,7 +46,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "auth-storage", // localStorage key
+      name: "auth-storage",
     }
   )
 );

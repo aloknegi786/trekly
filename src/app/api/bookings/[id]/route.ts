@@ -11,7 +11,6 @@ export async function PUT(req: NextRequest, { params }: {params: Promise<{id: st
     await dbConnect();
 
     const body = await req.json();
-    // this id is the unique uuid you gave using uuid function
     const { id: bookingId } = await params;
 
     const oldBooking = await BookingModel.findOne({ id: bookingId });

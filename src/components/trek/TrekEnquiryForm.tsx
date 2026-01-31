@@ -5,10 +5,14 @@ import { handleEnquiryAction } from "@/actions/enquiryform";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ActionState } from "@/actions/enquiryform";
+
+export type ActionState = {
+  success?: boolean;
+  error?: string;
+} | null;
 
 export function TrekEnquiryForm() {
-  const [state, formAction, isPending] = useActionState<ActionState>(
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     handleEnquiryAction,
     null
   );
@@ -32,7 +36,6 @@ export function TrekEnquiryForm() {
         />
 
         <Button 
-          
           disabled={isPending}
           type="submit" 
           className="mt-2 w-full bg-orange-600 hover:bg-orange-700 font-semibold h-11"

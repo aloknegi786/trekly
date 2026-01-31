@@ -10,10 +10,10 @@ interface EnquiryData {
     message: string;
 }
 
-export type ActionState =
-  | { success: true }
-  | { error: string }
-  | null;
+export type ActionState = {
+  success?: boolean;
+  error?: string;
+} | null;
 
 export async function handleEnquiryAction(
   prevState: ActionState,
@@ -69,10 +69,10 @@ export async function handleEnquiryAction(
     };
 
     await transporter.sendMail(mailOptions);
-    return { success: true };
+    return { success: true};
 
   } catch (error) {
     console.error("Email Error:", error);
-    return { error: "Failed to send email. Please try again later." };
+    return { error: "Failed to send email. Please try again later.", success: false};
   }
 }

@@ -1,10 +1,10 @@
 import dbConnect from '@/lib/dbConnect';
 import BookingModel from '@/models/Booking';
 import UserModel from '@/models/User';
-import TrekModel from '@/models/Trek';
 import { NextResponse } from 'next/server';
 import { TrekHistoryItemAdmin } from '@/types/trek';
 import { getBookingStatus } from '@/lib/bookingStatus'
+import mongoose from 'mongoose';
 
 // type Filters = {
 //   username: string;
@@ -15,6 +15,16 @@ import { getBookingStatus } from '@/lib/bookingStatus'
 export async function GET(request: Request) {
     try {
         await dbConnect();
+        if (!mongoose.models.Trek) {
+            require('@/models/Trek');
+        }
+        if (!mongoose.models.User) {
+            require('@/models/User');
+        }
+        if (!mongoose.models.Booking) {
+            require('@/models/Booking');
+        }
+
         const { searchParams } = new URL(request.url);
 
         const bookingId = searchParams.get('bookingId');
@@ -43,7 +53,12 @@ export async function GET(request: Request) {
             }).select('_id');
             
             const userIds = users.map(user => user._id);
-            filter.userId = { $in: userIds };
+            if (userIds.length > 0) {
+                filter.userId = { $in: userIds };
+            } else {
+                // No users found, return empty result
+                return NextResponse.json({ data: [] }, { status: 200 });
+            }
         }
 
         const bookings = await BookingModel.find(filter)
