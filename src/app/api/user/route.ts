@@ -64,6 +64,7 @@ export async function GET(req: NextRequest) {
   }
 }
 export async function POST(req: NextRequest) {
+  await dbConnect();
   try {
     const token = getToken(req);
     const body = await req.json();
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
     if (existingUser) {
       return NextResponse.json(
         { success: false, message: "User already exists" }, 
-        { status: 400 } 
+        { status: 200  } 
       );
     }
 
@@ -98,9 +99,10 @@ export async function PUT(req: NextRequest) {
 
     const uid = await verifySession(token);
     const cleanUpdateData: any = await UserModel.findOne({firebaseId: uid});
+    console.log("Clean Update Data:", body);
     if (body.name) cleanUpdateData.fullName = body.fullName;
     if (body.username) cleanUpdateData.username = body.username;
-    if (body.phone) cleanUpdateData.phoneNo = body.phoneNo;
+    if (body.phoneNo) cleanUpdateData.phoneNo = body.phoneNo;
 
     if (Object.keys(cleanUpdateData).length === 0) {
       return NextResponse.json(

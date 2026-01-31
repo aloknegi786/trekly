@@ -80,7 +80,6 @@ export default function Profile({
       {isEditing && (
         <EditProfileModal
           initialData={{ fullName, username, phoneNo, email }}
-          token={token}
           onClose={() => setIsEditing(false)}
         />
       )}

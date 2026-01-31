@@ -17,6 +17,7 @@ type AuthState = {
   isLogin: boolean;
   isAdmin: boolean;
 
+  setUser: (user: Partial<UserProfile>) => void;
   login: (user: UserProfile, token: string) => void;
   logout: () => void;
 };
@@ -28,6 +29,11 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isLogin: false,
       isAdmin: false,
+
+      setUser: (userData) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, ...userData } : (userData as UserProfile),
+        })),
 
       login: (user, token) =>
         set({

@@ -50,7 +50,6 @@ export const updateInfo = async (token: string, data: any) => {
     const uid = await verifySession(token);
 
     await dbConnect();
-
     const updatedUser = await User.findOneAndUpdate(
       { firebaseId: uid },
       { $set: data },

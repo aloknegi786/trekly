@@ -3,14 +3,16 @@
 import { useState } from "react";
 import { Mail, Phone, X, Save, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+import { useAuthStore } from "@/zustand-store";
 
 type EditModalProps = {
   initialData: { fullName: string; username: string; phoneNo: string; email: string };
-  token: string;
   onClose: () => void;
 };
 
-export default function EditProfileModal({ initialData, token, onClose }: EditModalProps) {
+export default function EditProfileModal({ initialData, onClose }: EditModalProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
@@ -31,6 +33,8 @@ export default function EditProfileModal({ initialData, token, onClose }: EditMo
         phoneNo: formData.phoneNo,
       };
 
+      const token = Cookies.get("session");
+
       const res = await fetch("/api/user", {
         method: "PUT",
         headers: {
@@ -43,12 +47,21 @@ export default function EditProfileModal({ initialData, token, onClose }: EditMo
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message || "Failed to update");
+        toast.error(data.message || "Failed to update");
       }
-      router.refresh(); 
+      toast.success("Profile updated successfully!");
+      const { user, setUser } = useAuthStore.getState();
+
+      setUser({
+        ...user,
+        name: data.user.fullName,
+        username: data.user.username,
+        phone: data.user.phoneNo,
+      });
+      router.refresh();
       onClose(); 
     } catch (error: any) {
-      alert(error.message || "Something went wrong while saving.");
+      toast.error(error.message || "Something went wrong while saving.");
       console.error(error);
     } finally {
       setLoading(false);
