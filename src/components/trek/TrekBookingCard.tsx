@@ -72,7 +72,7 @@ const contentType = res.headers.get("content-type");
 };
 
 export function TrekBookingCard() {
-  const phoneNumber: string = process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER || "+917579134676";
+  const phoneNumber: string = process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER_WHATSAPP || "+917579134676";
   const router = useRouter();
   const [showWarning, setShowWarning] = useState(false);
   const [data, setData] = useState({

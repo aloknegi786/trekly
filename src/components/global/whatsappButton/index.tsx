@@ -1,6 +1,7 @@
 "use client";
 
 const WhatsAppFloatingButton = () => {
+  const phoneNumber: string = process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER_WHATSAPP || "+917579134676";
   return (
     <div className="fixed bottom-5 right-5 z-50 group">
       
@@ -11,7 +12,7 @@ const WhatsAppFloatingButton = () => {
       
       {/* Button */}
       <a
-        href={`https://wa.me/${process.env.ADMIN_PHONE_NUMBER}?text=Hello%20Trekly%20Support%2C%20I%20need%20assistance%20with...`}
+        href={`https://wa.me/${phoneNumber}?text=Hello%20Divya%20Tour%20and%20Treks%20Support%2C%20I%20need%20assistance%20with...`}
         target="_blank"
         className="fixed bottom-5 right-5 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110"
       >
