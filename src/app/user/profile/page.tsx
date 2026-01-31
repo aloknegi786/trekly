@@ -34,57 +34,23 @@ const fetchUserProfile = async (): Promise<UserProfile> => {
 };
 
 const ProfilePage = () => {
-  const login = useAuthStore((state) => state.login);
   const authUser = useAuthStore((state) => state.user);
 
   console.log("Zustand Auth User:", authUser);
 
-  const token = Cookies.get('session') || "";
-
-  const { data: user, isLoading, isError, error } = useQuery({
-    queryKey: ['userProfile'],
-    queryFn: fetchUserProfile,
-    enabled: !!token && !authUser, // ✅ don't refetch if Zustand already has user
-    staleTime: Infinity,
-    retry: 1,
-  });
-
-  // ✅ Sync React Query → Zustand
-  useEffect(() => {
-    if (user && token) {
-      login(user, token);
-    }
-  }, [user, token, login]);
-
-  // Loading UI
-  if (isLoading && !authUser) {
-    return <div className="flex justify-center p-20">Loading profile...</div>;
-  }
-
-  // Error UI
-  if (isError) {
-    return (
-      <div className="text-center p-20">
-        <p>Error: {(error as Error).message}</p>
-      </div>
-    );
-  }
-
-  // Prefer Zustand user if exists
-  const finalUser = authUser || user;
 
   return (
     <div>
-      {finalUser && (
+      {authUser && (
         <Profile
-          fullName={finalUser.name}
-          email={finalUser.email}
-          phoneNo={finalUser.phone}
-          trips={finalUser.trips}
-          yearsActive={finalUser.yearsActive}
-          avatarUrl={`https://ui-avatars.com/api/?name=${encodeURIComponent(finalUser.name)}`}
-          username={finalUser.username || "Mountain Trekker"}
-          token={token}
+          fullName={authUser.name}
+          email={authUser.email}
+          phoneNo={authUser.phone}
+          trips={authUser.trips}
+          yearsActive={authUser.yearsActive}
+          avatarUrl={`https://ui-avatars.com/api/?name=${encodeURIComponent(authUser.name)}`}
+          username={authUser.username || "Mountain Trekker"}
+          token={authUser.token}
         />
       )}
     </div>

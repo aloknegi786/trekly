@@ -34,11 +34,8 @@ export async function protectRoute(request: NextRequest) {
   
   // Check against the actual paths defined in your matcher
   if (pathname.startsWith('/user') || pathname.startsWith('/admin') || pathname.startsWith('/api')) {
-    console.log(pathname, "is being accessed");
     try {
-      console.log("Verifying token:", token);
       const decodedToken = await verifySession(token || '');
-      console.log("Decoded Token:", decodedToken);
       if (!decodedToken) {
         const loginUrl = new URL('/login', request.url);
         loginUrl.searchParams.set('callbackUrl', pathname);

@@ -5,7 +5,7 @@ export interface User extends Document {
     firebaseId: string;
     fullName: string;
     username: string;
-    phoneNo: string;
+    phoneNo?: string;
     email: string;
 }
 
@@ -32,7 +32,6 @@ const UserSchema: Schema<User> = new Schema({
     },
     phoneNo: {
         type: String,
-        required: [true, "Phone No. is required!!"],
         unique: true
     }
 }, { timestamps: true }); 

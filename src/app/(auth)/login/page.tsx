@@ -3,7 +3,28 @@
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/lib/firebase"; 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import { useAuthStore } from "@/zustand-store";
+import { UserProfile } from "@/types/UserProfile";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+
+const fetchUserProfile = async (token: string): Promise<UserProfile> => {
+  const res = await fetch('/api/user', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch profile");
+  }
+
+  const data = await res.json();
+  return data.user;
+};
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,9 +32,20 @@ export default function LoginPage() {
 
   // Helper to handle session and redirect
   const handleAuthSuccess = async (user: any) => {
-    console.log("Processing after successfull log in.")
+    console.log("Processing after successful login");
+
     const token = await user.getIdToken();
-    document.cookie = `session=${token}; path=/; max-age=3600; SameSite=Lax`;
+
+    Cookies.set('session', token, {
+      expires: 1 / 24, // 1 hour
+      sameSite: 'lax',
+    });
+
+    const userProfile = await fetchUserProfile(token);
+
+    const login = useAuthStore.getState().login;
+    login(userProfile, token);
+
     router.push('/trek');
   };
 
@@ -44,6 +76,30 @@ export default function LoginPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result.user);
+      const token = await result.user.getIdToken();
+      Cookies.set('session', token, {
+        expires: 1 / 24, // 1 hour
+        sameSite: 'lax',
+      });
+      const dbUser = await fetch('/api/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          firebaseId: result.user.uid,
+          fullName: result.user.displayName,
+          email: result.user.email,
+          username: result.user.email?.split('@')[0],
+          phoneNo: result.user.phoneNumber || 'phone number not provided',
+        }),
+      });
+
+      if(!dbUser.ok) {
+        toast.error("Failed to create user in database");
+        return;
+      }
       await handleAuthSuccess(result.user);
     } catch (error) {
       console.error("Google sign-in error:", error);
@@ -51,6 +107,14 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const token = Cookies.get('session');
+    if (!token) {
+      useAuthStore.getState().logout();
+    }
+  }, []);
+
 
   return (
     <div className="flex items-center justify-center px-4 pt-20">

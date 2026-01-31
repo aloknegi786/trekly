@@ -23,7 +23,7 @@ export async function PUT(req: NextRequest, { params }: {params: Promise<{id: st
     }
     const updatedBooking = await BookingModel.findOneAndUpdate(
       { id: bookingId },
-      { $set: { status: body.status } },
+      { $set: { status: body.status  || "confirmed"} },
       { new: true }
     );
 

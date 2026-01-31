@@ -89,7 +89,7 @@ export function TrekBookingCard() {
              ⚠️ Check for group discounts & availability first!
           </span>
           <a 
-            href={`https://wa.me/${process.env.ADMIN_PHONE_NUMBER}?text=Hi,%20I%20want%20to%20confirm%20availability%20for%20a%20trek`}
+            href={`https://wa.me/${process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER}?text=Hi,%20I%20want%20to%20confirm%20availability%20for%20a%20trek`}
             target="_blank" 
             rel="noopener noreferrer"
             className="text-xs font-bold text-amber-700 underline hover:text-amber-900 w-fit"

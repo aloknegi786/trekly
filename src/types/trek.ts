@@ -9,7 +9,7 @@ export type TrekBooking = {
 }
 
 export type TrekHistoryItem = {
-  id: string;
+  id: string; 
   trekName: string;
   location: string;
   startDate: string;
@@ -17,4 +17,9 @@ export type TrekHistoryItem = {
   status: "Completed" | "Cancelled" | "Current" | "Upcoming";
   bookingStatus: string;
   peopleCount?: number
+};
+
+export type TrekHistoryItemAdmin = TrekHistoryItem & {
+    customerName: string
+    phoneNo: string;
 };

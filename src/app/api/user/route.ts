@@ -69,6 +69,14 @@ export async function POST(req: NextRequest) {
     const token = getToken(req);
     const body = await req.json();
 
+    const existingUser = await UserModel.findOne({ firebaseId: body.firebaseId });
+    if (existingUser) {
+      return NextResponse.json(
+        { success: false, message: "User already exists" }, 
+        { status: 400 } 
+      );
+    }
+
     const newUser = await createUser(token, body);
 
     return NextResponse.json({ success: true, user: newUser }, { status: 201 });
