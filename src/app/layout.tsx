@@ -47,7 +47,7 @@ export default function RootLayout({
       <body>
 
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-NK5M0DZ9VK"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -56,7 +56,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-NK5M0DZ9VK');
+            gtag('config', '${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}');
           `}
         </Script>
 
