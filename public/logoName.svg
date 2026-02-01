@@ -1,9 +1,14 @@
-<svg width="300" height="100" viewBox="110 300 300 73" xmlns="http://www.w3.org/2000/svg">
-  <g font-family="momo-signature" font-weight="bold">
-    <text x="120" y="345" font-size="55" fill="#E12106">दिव्य</text>
-    
-    <text x="255" y="345" font-size="55" fill="#E12106">Tour</text>
-    
-    <text x="160" y="385" font-size="55" fill="#E12106">&amp; Treks</text>
-  </g>
+<svg width="400" height="80" viewBox="0 0 460 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@700&amp;display=swap');
+      .logo-text {
+        font-family: 'Noto Serif Devanagari', serif;
+        font-weight: 700;
+        fill: #131212;
+      }
+    </style>
+  </defs>
+  
+  <text x="5" y="55" font-size="52" class="logo-text">दिव्य Tour &amp; Treks</text>
 </svg>

@@ -26,7 +26,7 @@ const Header = () => {
       {/* Left: Logo */}
       <div className="flex items-center gap-2">
         <Image alt="logo" src="/icon.svg" width={80} height={40} />
-        <Image alt="logo" src="/logoName.svg" width={100} height={60} />
+        <Image alt="logo" src="/logoName.svg" width={230} height={40} className="" />
       </div>
 
       {/* Desktop Navigation */}
@@ -65,16 +65,16 @@ const Header = () => {
         {/* Login Button */}
         
         <button 
-          className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "hidden": "block"}`} 
+          className={`${isLoggedIn ? "hidden" : "hidden lg:flex"} bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow`} 
           onClick={() => {router.push('/login')}}
-          >
+        >
           Login
         </button>
 
         <button 
-          className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "block": "hidden"}`} 
+          className={`${isLoggedIn ? "hidden lg:flex" : "hidden"} bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow`} 
           onClick={() => {router.push('/logout')}}
-          >
+        >
           Logout
         </button>
 
@@ -117,6 +117,22 @@ const Header = () => {
               onClick={() => setContactDetailsOpen(true)}
             >
               <Phone size={18} /> Call Us
+            </button>
+
+            {/* Login Button */}
+        
+            <button 
+              className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "hidden": "block"}`} 
+              onClick={() => {router.push('/login')}}
+              >
+              Login
+            </button>
+
+            <button 
+              className={`bg-[#e67e22] hover:bg-[#d35400] text-white px-5 py-2 rounded-md font-semibold transition shadow ${isLoggedIn? "block": "hidden"}`} 
+              onClick={() => {router.push('/logout')}}
+              >
+              Logout
             </button>
 
           </div>

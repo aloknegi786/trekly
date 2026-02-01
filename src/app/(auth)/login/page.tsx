@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 
 const fetchUserProfile = async (token: string): Promise<UserProfile> => {
   const res = await fetch('/api/user', {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -89,7 +90,7 @@ export default function LoginPage() {
           fullName: result.user.displayName,
           email: result.user.email,
           username: result.user.email?.split('@')[0],
-          phoneNo: result.user.phoneNumber || 'phone number not provided',
+          phoneNo: result.user.phoneNumber || `${result.user.email?.split('@')[0]}-phone`,
         }),
       });
 

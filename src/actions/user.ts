@@ -37,6 +37,10 @@ export const createUser = async (token: string, userData: any) => {
       return JSON.parse(JSON.stringify(existingUser));
     }
 
+    if(userData.phoneNo === undefined) {
+      userData.phoneNo = `${userData.email.split('@')[0]}-phone`; // uunique constraint workaround
+    }
+
     const newUser = await User.create(userData);
     return JSON.parse(JSON.stringify(newUser));
   } catch (error: any) {
