@@ -1,5 +1,3 @@
-"use client";
-
 import { trekItinerary } from "./trekItineraryData"
 import { TrekItineraryItem } from "./TrekItineraryItem"
 
@@ -9,7 +7,7 @@ export function TrekItinerary() {
       <h2 className="text-2xl font-bold">Day-by-Day Itinerary</h2>
 
       <div className="space-y-5">
-        {trekItinerary.map(day => (
+        {trekItinerary.map((day) => (
           <TrekItineraryItem key={day.day} {...day} />
         ))}
       </div>

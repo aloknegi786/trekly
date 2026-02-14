@@ -33,20 +33,27 @@ export default function LoginPage() {
 
   // Helper to handle session and redirect
   const handleAuthSuccess = async (user: any) => {
+    try {
+      const token = await user.getIdToken();
 
-    const token = await user.getIdToken();
+      Cookies.set('session', token, {
+        expires: 1 / 24, 
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      });
 
-    Cookies.set('session', token, {
-      expires: 1 / 24, // 1 hour
-      sameSite: 'lax',
-    });
+      const userProfile = await fetchUserProfile(token);
 
-    const userProfile = await fetchUserProfile(token);
+      const login = useAuthStore.getState().login;
+      login(userProfile, token);
 
-    const login = useAuthStore.getState().login;
-    login(userProfile, token);
-
-    router.push('/trek');
+      router.refresh();
+      
+      window.location.href = '/trek';
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -36,7 +36,7 @@ export function TrekGallery() {
 
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % images.length)
-    }, 1500)
+    }, 1750)
 
     return () => clearInterval(interval)
   }, [isPaused])

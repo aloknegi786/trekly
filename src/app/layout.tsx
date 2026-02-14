@@ -80,8 +80,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/icon.jpeg',
-    apple: '/icon.jpeg',
+    icon: '/icon.svg',
+    apple: '/icon.svg',
   },
   verification: {
     google: `${process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID}`, // TODO: Add this from Google Search Console
@@ -101,7 +101,7 @@ export default function RootLayout({
         // Schema for your Business
         "@type": "TravelAgency",
         "name": "Divya Tour and Treks",
-        "image": "https://divyatourandtreks.in/icon.jpeg",
+        "image": "https://divyatourandtreks.in/icon.svg",
         "url": "https://divyatourandtreks.in",
         "telephone": `${process.env.NEXT_PUBLIC_ADMIN_PHONE_NUMBER}`,
         "address": {

@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 
 const fetchUserProfile = async (): Promise<UserProfile> => {
   const token = Cookies.get('session');
+  console.log('token', token)
   
   if (!token) throw new Error("No session token found");
   try {

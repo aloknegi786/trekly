@@ -14,7 +14,6 @@ export async function POST(request: Request) {
         const username = formData.get("username") as string;
         const fullName = formData.get("fullName") as string;
         const phoneNo = formData.get("phoneNo") as string;
-        console.log("Received signup data:", { email, username, fullName, phoneNo, password });
 
         // validate required fields
         if (!email || !password || !username || !fullName || !phoneNo) {

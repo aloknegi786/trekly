@@ -1,21 +1,19 @@
-"use client";
-
-import { ShieldCheck, Leaf, Map, Users, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Leaf, Map, CheckCircle2 } from "lucide-react";
 
 export function TrekOverview() {
   return (
     <div className="space-y-12">
       
-      {/* --- 1. NEW: Trek Description (From your text) --- */}
+      {/* --- 1. SEO Description --- */}
       <section className="space-y-4">
         <h2 className="text-2xl font-bold text-gray-900">About the Trek</h2>
-        <p className="text-black leading-relaxed">
-          <span className="font-semibold text-black">Nag Tibba</span> ("Serpent's Peak") 
+        <p className="text-gray-700 leading-relaxed"> {/* Changed text-black to gray-700 for better contrast */}
+          <span className="font-semibold text-gray-900">Nag Tibba</span> ("Serpent's Peak") 
           stands as the highest summit in the lower Himalayas of Uttarakhand. 
           Whether you are a first-time trekker or looking to witness magical 
           snowfall on a weekend, this trek is your perfect escape.
         </p>
-        <p className="text-black leading-relaxed">
+        <p className="text-gray-700 leading-relaxed">
           From the summit, you are rewarded with a majestic 360-degree view of Himalayan giants 
           like <span className="font-semibold text-gray-900">Swargarohini, Bandarpoonch, and Nanda Devi</span>. 
           The trail takes you through dense oak and rhododendron forests, offering a true 
@@ -23,7 +21,7 @@ export function TrekOverview() {
         </p>
       </section>
 
-      {/* --- 2. NEW: Inclusions (From your text) --- */}
+      {/* --- 2. Inclusions --- */}
       <section className="bg-orange-50/50 p-6 md:p-8 rounded-2xl border border-orange-100">
         <h3 className="text-lg font-bold text-gray-900 mb-4">What's Included</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-4">
@@ -43,16 +41,14 @@ export function TrekOverview() {
         </div>
       </section>
 
-      {/* --- 3. EXISTING: Company Intro & Why Us (Your code) --- */}
-      <div className="space-y-8 border-t pt-8 ">
+      {/* --- 3. Why Us --- */}
+      <div className="space-y-8 border-t pt-8">
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900">Experience the Magic of the Himalayas</h2>
-          <p className="text-black leading-relaxed">
-            At <span className="font-semibold text-[#E12106] not-prose">Divya Tour and Treks</span>, 
+          <p className="text-gray-700 leading-relaxed">
+            At <span className="font-semibold text-[#E12106]">Divya Tour and Treks</span>, 
             we specialize in turning a simple trek into a life-changing adventure. Based in the 
-            heart of the Garhwal region, our Nag Tibba expeditions are designed for everyone—from 
-            first-time trekkers looking for their first summit to seasoned hikers seeking a 
-            quick Himalayan escape.
+            heart of the Garhwal region, our Nag Tibba expeditions are designed for everyone.
           </p>
         </section>
 
@@ -62,6 +58,7 @@ export function TrekOverview() {
           </h3>
           
           <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-blue-700">
                 <Map className="w-5 h-5" />
@@ -73,6 +70,7 @@ export function TrekOverview() {
               </p>
             </div>
 
+            {/* Feature 2 */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-orange-600">
                 <ShieldCheck className="w-5 h-5" />
@@ -84,6 +82,7 @@ export function TrekOverview() {
               </p>
             </div>
 
+            {/* Feature 3 */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-green-600">
                 <Leaf className="w-5 h-5" />
@@ -91,7 +90,7 @@ export function TrekOverview() {
               </div>
               <p className="text-sm text-gray-600 leading-relaxed">
                 We believe in "Leave No Trace." We ensure our treks preserve the pristine 
-                beauty of the oak and rhododendron forests for generations to come.
+                beauty of the forests for generations to come.
               </p>
             </div>
           </div>

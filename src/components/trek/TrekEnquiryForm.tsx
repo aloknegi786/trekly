@@ -1,10 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react"; // Added useEffect, useRef
 import { handleEnquiryAction } from "@/actions/enquiryform";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast"; // Recommended for better feedback
 
 export type ActionState = {
   success?: boolean;
@@ -17,22 +18,48 @@ export function TrekEnquiryForm() {
     null
   );
 
+ 
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (state?.success) {
+      toast.success("Enquiry sent successfully!");
+      formRef.current?.reset(); // <--- This clears the inputs
+    } else if (state?.error) {
+      toast.error(state.error);
+    }
+  }, [state]);
+
   return (
-    <aside className="rounded-xl border bg-white p-6 shadow-sm">
+    <aside 
+      id="EnquiryForm" 
+      className="rounded-xl border bg-white p-6 shadow-sm scroll-mt-28"
+    >
       <h3 className="text-xl font-semibold mb-4">Enquire Now</h3>
 
-      <form id="EnquiryForm" action={formAction} className="space-y-3">
-        {/* 'name' attributes are CRITICAL for Server Actions */}
-        <Input name="fullName" placeholder="Full Name" required />
-        <Input name="email" type="email" placeholder="Email Address" required />
-        <Input name="phoneNumber" type="tel" placeholder="Phone Number" required />
-        <Input name="date" type="date" required />
+      <form 
+        ref={formRef}
+        action={formAction} 
+        className="space-y-3"
+      >
+        <Input name="fullName" placeholder="Full Name" required disabled={isPending} />
+        <Input name="email" type="email" placeholder="Email Address" required disabled={isPending} />
+        <Input name="phoneNumber" type="tel" placeholder="Phone Number" required disabled={isPending} />
+     
+        <Input 
+          name="date" 
+          type="date" 
+          required 
+          disabled={isPending}
+          min={new Date().toISOString().split("T")[0]} 
+        />
 
         <Textarea 
           name="message"
           placeholder="Message" 
           className="min-h-[100px] resize-none" 
           required
+          disabled={isPending}
         />
 
         <Button 
@@ -43,11 +70,12 @@ export function TrekEnquiryForm() {
           {isPending ? "Sending..." : "Send Enquiry"}
         </Button>
 
-        {/* Feedback Messages */}
-        {state?.success && <p className="text-green-600 text-sm">Enquiry sent successfully!</p>}
-        {state?.error && <p className="text-red-600 text-sm">{state.error}</p>}
+        {state?.success && (
+            <p className="text-green-600 text-sm text-center mt-2">
+                ✓ Enquiry sent! We will contact you soon.
+            </p>
+        )}
       </form>
     </aside>
-
   );
 }
