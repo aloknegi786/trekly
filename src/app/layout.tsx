@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     "Nag Tibba trek exeperience",
     "Nag Tibba trek booking",
     "Nag Tibba trek from Dehradun",
+    "Nag Tibba trek from Delhi",
     "Pantwari to Nag Tibba distance",
     "Nag Tibba weather",
     "weekend treks near Mussoorie",
